@@ -25,3 +25,14 @@ extension NewsFeedViewController: UITableViewDataSource {
     
     
 }
+
+extension NewsFeedViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let article = newsArticles[indexPath.row]
+        
+        let ArticleDetailVC = ArticleDetailViewController(article: article)
+        navigationController?.pushViewController(ArticleDetailVC, animated: true)
+    }
+}

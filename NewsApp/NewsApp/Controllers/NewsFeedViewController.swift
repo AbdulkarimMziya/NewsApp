@@ -66,8 +66,7 @@ class NewsFeedViewController: UIViewController {
         view.addSubview(tableview)
         
         tableview.dataSource = self
-        
-        // TODO: Implement table delegate
+        tableview.delegate = self
         
         NSLayoutConstraint.activate([
             segmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
