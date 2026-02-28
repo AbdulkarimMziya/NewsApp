@@ -14,12 +14,11 @@ extension NewsFeedViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ArticleCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: ArticleTableViewCell.cellIdentifier, for: indexPath) as! ArticleTableViewCell
         
         let article = newsArticles[indexPath.row]
         
-        
-        cell.textLabel?.text = article.source.name
+        cell.configure(with: article)
         
         return cell
     }

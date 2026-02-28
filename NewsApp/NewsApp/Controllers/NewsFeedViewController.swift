@@ -24,7 +24,8 @@ class NewsFeedViewController: UIViewController {
     
     private let tableview: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ArticleCell")
+        tableView.rowHeight = 150
+        tableView.register(ArticleTableViewCell.self, forCellReuseIdentifier: ArticleTableViewCell.cellIdentifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
