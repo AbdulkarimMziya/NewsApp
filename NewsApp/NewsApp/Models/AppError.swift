@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+
+enum AppError: Error {
+    case badURL(String)
+    case noResponse
+    case requestFailed(Error)
+    case noData
+    case decodingError(Error)
+    case badStatusCode(Int)
+}

@@ -30,7 +30,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		4D6F0E302F523C1400C223A3 /* Exceptions for "NewsApp" folder in "NewsApp" target */ = {
+		4D6F0E6D2F52692A00C223A3 /* Exceptions for "NewsApp" folder in "NewsApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -53,7 +53,7 @@
 		4D6F0E2B2F523C1400C223A3 /* NewsApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				4D6F0E302F523C1400C223A3 /* Exceptions for "NewsApp" folder in "NewsApp" target */,
+				4D6F0E6D2F52692A00C223A3 /* Exceptions for "NewsApp" folder in "NewsApp" target */,
 			);
 			path = NewsApp;
 			sourceTree = "<group>";
