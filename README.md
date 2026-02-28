@@ -14,7 +14,7 @@ A modern iOS news reader app built with Swift and UIKit that fetches and display
 
 | News Feed | Article Detail |
 |-----------|---------------|
-| *(Add screenshot here)* | *(Add screenshot here)* |
+| <img src="Screenshots/feed.png" alt="Feed screenshot" style="width:40%; height:auto;"> | <img src="Screenshots/article.png" alt="Article screenshot" style="width:40%; height:auto;">|
 
 ## Requirements
 
