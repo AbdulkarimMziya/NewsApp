@@ -35,7 +35,7 @@ class ArticleTableViewCell: UITableViewCell {
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
-    } ()
+    }()
     
     private let articleImageView: UIImageView = {
         let iv = UIImageView()
