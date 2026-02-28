@@ -10,16 +10,13 @@ import UIKit
 class NewsFeedViewController: UIViewController {
 
     // MARK: UI Declarations
-    
-    private let newsCategoryStack: UIStackView = {
-        let hStack = UIStackView()
-        hStack.axis = .horizontal
-        hStack.alignment = .center
-        hStack.distribution = .fillProportionally
-        hStack.backgroundColor = .cyan
-        // TODO: Add spacing is need
-        hStack.translatesAutoresizingMaskIntoConstraints = false
-        return hStack
+    lazy var segmentedControl: UISegmentedControl = {
+        let items = ["General", "Tech", "Sports", "Health"]
+        let control = UISegmentedControl(items: items)
+        control.translatesAutoresizingMaskIntoConstraints = false
+        control.selectedSegmentIndex = 0 // Set the default selected segment
+        control.addTarget(self, action:#selector(segmentedControlValueChanged(_:)), for: .valueChanged)
+        return control
     }()
     
     private let tableview: UITableView = {
@@ -39,22 +36,23 @@ class NewsFeedViewController: UIViewController {
     // MARK: lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemGray2
+        view.backgroundColor = .white
         
-        loadData()
+        loadData(with: "General")
         setupUI()
     }
     
-    func loadData() {
+    func loadData(with category: String) {
         
         Task {
             do {
                 // This waits for the array to actually fill up
-                let articles = try await NewsService.fetchNewsData(for: "health")
+                let articles = try await NewsService.fetchNewsData(for: category)
         
                 // Always update UI on the MainActor
                 DispatchQueue.main.async {
                     self.newsArticles = articles
+                    self.title = category
                     print("\(articles.count)")
                 }
             } catch {
@@ -64,7 +62,7 @@ class NewsFeedViewController: UIViewController {
     }
     
     private func setupUI() {
-        view.addSubview(newsCategoryStack)
+        view.addSubview(segmentedControl)
         view.addSubview(tableview)
         
         tableview.dataSource = self
@@ -72,17 +70,27 @@ class NewsFeedViewController: UIViewController {
         // TODO: Implement table delegate
         
         NSLayoutConstraint.activate([
-            newsCategoryStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            newsCategoryStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            newsCategoryStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            newsCategoryStack.heightAnchor.constraint(equalToConstant: 40),
+            segmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
-            tableview.topAnchor.constraint(equalTo: newsCategoryStack.bottomAnchor),
+            tableview.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 8),
             tableview.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableview.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableview.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
+    @objc
+    func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        guard let category = sender.titleForSegment(at: sender.selectedSegmentIndex) else {
+            return
+        }
+        
+        loadData(with: category)
+    }
+
 
 
 }
