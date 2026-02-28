@@ -90,8 +90,20 @@ class ArticleTableViewCell: UITableViewCell {
     func configure(with article: Article) {
         titleLabel.text = article.title
         authorLabel.text = article.author ?? article.source.name
-        dateLabel.text = article.publishedAt // You might want a DateFormatter here later
-        // Note:
+        dateLabel.text = article.publishedAt
+        
+        
+        articleImageView.contentMode = .center
+        articleImageView.image = UIImage(systemName: "newspaper")
+            
+        Task {
+            if let image = try? await NewsService.fetchImage(from:article.urlToImage) {
+                DispatchQueue.main.async {
+                    self.articleImageView.contentMode = .scaleAspectFill
+                    self.articleImageView.image = image
+                }
+            }
+        }
     }
 
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct NewsService {
 
@@ -22,7 +23,7 @@ struct NewsService {
         if let category {
             queryItems.append(URLQueryItem(name: "category", value: category))
         }
-        queryItems.append(URLQueryItem(name: "apiKey", value: Secrete.apiKey))
+        queryItems.append(URLQueryItem(name: "apiKey", value: Secret.apiKey))
         components.queryItems = queryItems
         
         // 2. Validate URL and Create Request
@@ -47,5 +48,21 @@ struct NewsService {
         newsArticles = newsResponse.articles
         
         return newsArticles
+    }
+    
+    static func fetchImage(from urlString: String?) async throws -> UIImage? {
+        guard let urlString = urlString, let url = URL(string: urlString) else {
+            return nil
+        }
+        
+        let request = URLRequest(url: url)
+        
+        let data = try await NetworkHelper.shared.performDataTask(with: request)
+        
+        guard let image = UIImage(data: data) else {
+            throw AppError.noData
+        }
+        
+        return image
     }
 }

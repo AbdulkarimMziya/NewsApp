@@ -156,7 +156,18 @@ class ArticleDetailViewController: UIViewController {
         dateLabel.text = thisArticle.publishedAt
         descriptionLabel.text = thisArticle.description
         contentLabel.text = thisArticle.content
-        // TODO: Image loading logic goes here
+        
+        articleImageView.contentMode = .center
+        articleImageView.image = UIImage(systemName: "newspaper")
+            
+        Task {
+            if let image = try? await NewsService.fetchImage(from:thisArticle.urlToImage) {
+                DispatchQueue.main.async {
+                    self.articleImageView.contentMode = .scaleAspectFill
+                    self.articleImageView.image = image
+                }
+            }
+        }
     }
 
 }
