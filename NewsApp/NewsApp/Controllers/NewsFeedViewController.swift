@@ -11,7 +11,7 @@ class NewsFeedViewController: UIViewController {
 
     // MARK: UI Declarations
     lazy var segmentedControl: UISegmentedControl = {
-        let items = ["General", "Tech", "Sports", "Health"]
+        let items = ["General", "Technology", "Sports", "Health"]
         let control = UISegmentedControl(items: items)
         control.translatesAutoresizingMaskIntoConstraints = false
         control.selectedSegmentIndex = 0 // Set the default selected segment
@@ -36,7 +36,7 @@ class NewsFeedViewController: UIViewController {
     // MARK: lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(white: 1, alpha: 0.90)
         
         loadData(with: "General")
         setupUI()
@@ -53,7 +53,6 @@ class NewsFeedViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.newsArticles = articles
                     self.title = category
-                    print("\(articles.count)")
                 }
             } catch {
                 print("Error: \(error)")
